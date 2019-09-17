@@ -4,10 +4,12 @@ namespace app\admin\controller;
 
 class AdminUser extends Comm
 {
+
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = model('AdminUser');
+        //$this->model = model('AdminUser');
+        $this->model = new \app\admin\model\AdminUser();
     }
 
     public function index()

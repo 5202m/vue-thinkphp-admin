@@ -1,10 +1,12 @@
 <template lang="pug">
-  div#st-404
-    div.cont
-      div.img
-      div.title1 很抱歉，您访问的页面不在地球上。。。
-      div.title2 如果想要继续浏览，请点击下面按钮返回首页
-      el-button(type="danger" @click="toRouter('index')") 返回首页
+  <div id="st-404">
+    <div class="cont">
+      <div class="img"></div>
+      <div class="title1"> 很抱歉，您访问的页面不在地球上。。。</div>
+      <div class="title2"> 如果想要继续浏览，请点击下面按钮返回首页</div>
+      <el-button type="danger" @click="toRouter('index')">返回首页</el-button>
+    </div>
+  </div>
 </template>
 <script>
 import util from '@/utils'

@@ -1,25 +1,41 @@
 <template lang="pug">
-  div#login-container(v-loading="loading")
-    div.content
-      div.login.fl
-        el-header.text-center 后台管理系统
-        el-main
-          el-form(:model="ruleForm" :rules="rules" ref="ruleForm")
-            el-form-item(prop="username")
-              el-input(v-model="ruleForm.username" auto-complete="off")
-                i(slot="prefix")
-                  svg.icon.fs-20.mt-10(aria-hidden="true" @click="toLink")
-                    use(xlink:href="#nan-icon-user")
-            el-form-item(prop="password")
-              el-input(type="password" v-model="ruleForm.password" auto-complete="off")
-                i(slot="prefix")
-                  svg.icon.fs-20.mt-10(aria-hidden="true" @click="toLink")
-                    use(xlink:href="#nan-icon-password")
-            el-form-item.text-center
-              el-button.bt-bg(type="primary" style="width:266px;margin-top:10px;" @click="submitForm('ruleForm')") 登录
-        el-footer.text-center
-          svg.icon(aria-hidden="true" @click="toLink")
-            use(xlink:href="#nan-icon-github")
+  <div id="login-container" v-loading="loading">
+    <div class="content">
+      <div class="login fl">
+        <el-header class="text-center">后台管理系统</el-header>
+        <el-main>
+          <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form-item prop="username">
+              <el-input v-model="ruleForm.username" auto-complete="off">
+                <i slot="prefix">
+                  <svg class="icon fs-20 mt-10" aria-hidden="true" @click="toLink">
+                    <use xlink:href="#nan-icon-user" />
+                  </svg>
+                </i>
+              </el-input>
+            </el-form-item>
+            <el-form-item prop="password">
+              <el-input type="password" v-model="ruleForm.password" auto-complete="off">
+                <i slot="prefix">
+                  <svg class="icon fs-20 mt-10" aria-hidden="true" @click="toLink">
+                    <use xlink:href="#nan-icon-password" />
+                  </svg>
+                </i>
+              </el-input>
+            </el-form-item>
+            <el-form-item class="text-center">
+              <el-button class="bt-bg" type="primary" style="width:266px;margin-top:10px;" @click="submitForm('ruleForm')">登录</el-button>
+            </el-form-item>
+          </el-form>
+        </el-main>
+        <el-footer class="text-center">
+          <svg class="icon" aria-hidden="true" @click="toLink">
+            <use xlink:href="#nan-icon-github" />
+          </svg>
+        </el-footer>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

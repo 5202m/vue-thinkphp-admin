@@ -1,15 +1,22 @@
 <template lang="pug">
-  div#Info
-    div.content
-      el-form(:model="ruleForm" :rules="rules" ref="ruleForm" style="text-align:left" label-width="60px" v-loading="loading")
-        el-form-item(label="昵称" prop="nickname")
-          el-input(v-model="ruleForm.nickname")
-        el-form-item(label="头像" prop="status")
-          el-upload.avatar-uploader(:headers="header" name="file" accept=".jpg,.png,.jpeg" :action="path" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload")
-            img.avatar(v-if="imageUrl" :src="imageUrl")
-            i.el-icon-plus.avatar-uploader-icon(v-else)
-        el-form-item
-          el-button(type="primary" @click="submitForm('ruleForm')" style="width:35%") 修 改
+  <div id="Info">
+    <div class="content">
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" style="text-align:left" label-width="60px" v-loading="loading">
+        <el-form-item label="昵称" prop="nickname">
+          <el-input v-model="ruleForm.nickname" />
+        </el-form-item>
+        <el-form-item label="头像" prop="status">
+          <el-upload class="avatar-uploader" :headers="header" name="file" accept=".jpg,.png,.jpeg" :action="path" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+            <img class="avatar" v-if="imageUrl" :src="imageUrl" />
+            <i class="el-icon-plus avatar-uploader-icon" v-else />
+          </el-upload>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">修 改</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </div>
 </template>
 <script>
 import util from '@/utils'

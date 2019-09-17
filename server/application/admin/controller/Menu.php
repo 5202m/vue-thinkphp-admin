@@ -6,7 +6,8 @@ class Menu extends Comm
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = model('Menu');
+        //$this->model = model('Menu');
+        $this->model = new \app\admin\model\Menu();
     }
 
     public function index()

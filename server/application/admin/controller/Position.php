@@ -7,7 +7,8 @@ class Position extends Comm
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = model('Position');
+        //$this->model = model('Position');
+        $this->model = new \app\admin\model\Position();
     }
 
     public function index()

@@ -7,7 +7,8 @@ class Department extends Comm
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = model('Department');
+        //$this->model = model('Department');
+        $this->model = new \app\admin\model\Department();
     }
 
     public function index()

@@ -6,6 +6,14 @@ use think\Request;
 
 class Comm extends Controller
 {
+    protected $model;
+
+    protected $param = [];
+
+    private $token = null;
+
+    protected $user = null;
+
     public function _initialize()
     {
         parent::_initialize();
@@ -47,7 +55,8 @@ class Comm extends Controller
         if ($this->token) {
             cache($this->token, null);
             $d['last_logout_at'] = time();
-            $ret = model('AdminUser')->updateUser($this->user['id'], $d, false);
+            $adminUser = new \app\admin\model\AdminUser();
+            $ret = $adminUser->updateUser($this->user['id'], $d, false);
             return msg(200, null, '操作成功');
         } else {
             return msg(100, null, '操作失败');

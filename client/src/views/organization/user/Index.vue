@@ -1,53 +1,78 @@
 <template lang="pug">
-  div
-    div.filter-container
-      el-input.filter-item(clearable @keyup.enter.native="handleFilter" style="width: 150px;" placeholder="昵称" v-model="list.nickname")
-      el-select.filter-item(clearable style="width: 120px" v-model="list.d_id" placeholder="部门")
-        el-option(v-for="item in listDep" :key="item.id" :label="item.name" :value="item.id")
-      el-select.filter-item(clearable style="width: 120px" v-model="list.p_id" placeholder="岗位")
-        el-option(v-for="item in listPos" :key="item.id" :label="item.name" :value="item.id")
-      el-select.filter-item(clearable style="width: 120px" v-model="list.status" placeholder="状态")
-        el-option(label="启用" value="1")
-        el-option(label="禁用" value="0")
-      el-button.filter-item(type="primary" icon="el-icon-search" @click="handleFilter") 搜索
-      el-button.filter-item(type="primary" icon="el-icon-plus" @click="add") 添加
-    el-table(:data="data" border v-loading="loading")
-      el-table-column(prop="index" label="序号" align="center" width="100")
-        template(slot-scope="scope")
-          span {{scope.$index + 1}}
-      el-table-column(prop="nickname" label="昵称" align="center")
-      el-table-column(prop="username" label="用户名" align="center")
-      el-table-column(prop="d_name" label="岗位" align="center")
-      el-table-column(prop="p_name" label="部门" align="center")
-      el-table-column(prop="status" label="状态" align="center")
-        template(slot-scope="scope")
-          el-tag(:type="scope.row.status | statusFilterType") {{scope.row.status | statusFilter}}
-      el-table-column(label="操作" width="260" align="center")
-        template(slot-scope="scope")
-          el-button(size="mini" type="primary" plain @click="edit(scope.row)") 编辑
-          el-button(v-if="scope.row.status==1" size="mini" plain type="warning" @click="enable(scope.row)") 禁用
-          el-button(v-else size="mini" plain type="success" @click="enable(scope.row)") 启用
-          el-button(size="mini" type="danger" plain @click="del(scope.row,scope.$index)") 删除
-    el-dialog(:title="title" :visible.sync="dialogFormVisible" width="500px" height="500px")
-      el-form(v-loading="f_loading" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px")
-        el-form-item(label="昵称" prop="nickname")
-          el-input(v-model="ruleForm.nickname")
-        el-form-item(label="用户名" prop="username")
-          el-input(v-model="ruleForm.username" :disabled="type != 1")
-        el-form-item(label="密码")
-          el-input(v-model="ruleForm.password" type="password")
-        el-form-item(label="部门" prop="d_id")
-          el-select(v-model="ruleForm.d_id" filterable placeholder="请选择")
-            el-option(v-for="item in listDep" :key="item.id" :label="item.name" :value="item.id")
-        el-form-item(label="岗位" prop="p_id")
-          el-select(v-model="ruleForm.p_id" filterable placeholder="请选择")
-            el-option(v-for="item in listPos" :key="item.id" :label="item.name" :value="item.id")
-        el-form-item(label="权限" prop="r_id")
-          el-select(v-model="ruleForm.r_id" filterable placeholder="请选择")
-            el-option(v-for="item in listRule" :key="item.id" :label="item.name" :value="item.id")
-      div.dialog-footer(slot="footer")
-        el-button(@click="dialogFormVisible = false") 取 消
-        el-button(type="primary" @click="submit") 确 定
+  <div>
+    <div class="filter-container">
+      <el-input class="filter-item" clearable @keyup.enter.native="handleFilter" style="width: 150px;" placeholder="昵称" v-model="list.nickname" />
+      <el-select class="filter-item" clearable style="width: 120px" v-model="list.d_id" placeholder="部门">
+        <el-option v-for="item in listDep" :key="item.id" :label="item.name" :value="item.id" />
+      </el-select>
+      <el-select class="filter-item" clearable style="width: 120px" v-model="list.p_id" placeholder="岗位">
+        <el-option v-for="item in listPos" :key="item.id" :label="item.name" :value="item.id" />
+      </el-select>
+      <el-select class="filter-item" clearable style="width: 120px" v-model="list.status" placeholder="状态">
+        <el-option label="启用" value="1" />
+        <el-option label="禁用" value="0" />
+      </el-select>
+      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">搜索</el-button>
+      <el-button class="filter-item" type="primary" icon="el-icon-plus" @click="add">添加</el-button>
+    </div>
+    <el-table :data="data" border v-loading="loading">
+      <el-table-column prop="index" label="序号" align="center" width="100">
+        <template slot-scope="scope">
+          <span>{{scope.$index + 1}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="nickname" label="昵称" align="center"></el-table-column>
+      <el-table-column prop="username" label="用户名" align="center"></el-table-column>
+      <el-table-column prop="d_name" label="岗位" align="center"></el-table-column>
+      <el-table-column prop="p_name" label="部门" align="center"></el-table-column>
+      <el-table-column prop="status" label="状态" align="center">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.status | statusFilterType">{{scope.row.status | statusFilter}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="260" align="center">
+        <template slot-scope="scope">
+          <el-button size="mini" type="primary" plain @click="edit(scope.row)">编辑</el-button>
+          <el-button v-if="scope.row.status==1" size="mini" plain type="warning" @click="enable(scope.row)">禁用</el-button>
+          <el-button v-else size="mini" plain type="success" @click="enable(scope.row)">启用</el-button>
+          <el-button size="mini" type="danger" plain @click="del(scope.row,scope.$index)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <el-dialog :title="title" :visible.sync="dialogFormVisible" width="500px" height="500px">
+      <el-form v-loading="f_loading" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px">
+        <el-form-item label="昵称" prop="nickname">
+          <el-input v-model="ruleForm.nickname" />
+        </el-form-item>
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="ruleForm.username" :disabled="type != 1" />
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="ruleForm.password" type="password" />
+        </el-form-item>
+        <el-form-item label="部门" prop="d_id">
+          <el-select v-model="ruleForm.d_id" filterable placeholder="请选择">
+            <el-option v-for="item in listDep" :key="item.id" :label="item.name" :value="item.id" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="岗位" prop="p_id">
+          <el-select v-model="ruleForm.p_id" filterable placeholder="请选择">
+            <el-option v-for="item in listPos" :key="item.id" :label="item.name" :value="item.id" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="权限" prop="r_id">
+          <el-select v-model="ruleForm.r_id" filterable placeholder="请选择">
+            <el-option v-for="item in listRule" :key="item.id" :label="item.name" :value="item.id" />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div class="dialog-footer" slot="footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="submit">确 定</el-button>
+      </div>
+    </el-dialog>
+  </div>
 </template>
 <script>
 import api from '@/api'
@@ -62,6 +87,7 @@ export default{
       ruleForm: {
         nickname: '',
         username: '',
+        password: '',
         d_id: null,
         p_id: null,
         r_id: null
@@ -73,6 +99,9 @@ export default{
         ],
         username: [
           { required: true, message: '用户名不能为空', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '密码不能为空', trigger: 'blur' }
         ],
         p_id: [
           { required: true, message: '请选择岗位', trigger: 'change' }

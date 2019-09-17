@@ -1,15 +1,22 @@
 <template lang="pug">
-  el-container
-    el-aside(width="200px")
+  <el-container>
+    <el-aside width="200px">
       Menu
-    el-container
-      el-header
+    </el-aside>
+    <el-container>
+      <el-header>
         Header
-      el-main
-        transition(name="fade-transform" mode="out-in")
+      </el-header>
+      <el-main>
+        <transition name="fade-transform" mode="out-in">
           router-view
-      el-footer
+        </transition>
+      </el-main>
+      <el-footer>
         Footer
+      </el-footer>
+    </el-container>
+  </el-container>
 </template>
 <script>
 import Menu from '@/views/components/Menu'

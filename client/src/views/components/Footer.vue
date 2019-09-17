@@ -1,5 +1,6 @@
 <template lang="pug">
-  div
-    slot &copy;2018 — master-nan
-    slot &nbsp;&nbsp;&nbsp;&nbsp;Email —  jszj_dwy1989@163.com
+  <div>
+    <slot> &copy;2019 — master-5202m </slot>
+    <slot> &nbsp;&nbsp;&nbsp;&nbsp;Email —  158933822@qq.com </slot>
+  </div>
 </template>

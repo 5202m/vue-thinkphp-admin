@@ -7,7 +7,8 @@ class Files extends Comm
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = model('Files');
+        //$this->model = model('Files');
+        $this->model = new \app\admin\model\Files();
     }
 
     public function index()

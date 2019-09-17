@@ -7,7 +7,8 @@ class Rule extends Comm
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = model('Rule');
+        //$this->model = model('Rule');
+        $this->model = new \app\admin\model\Rule();
     }
 
     public function index()

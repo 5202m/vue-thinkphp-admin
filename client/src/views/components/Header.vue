@@ -1,30 +1,42 @@
 <template lang="pug">
-  div.head
-    el-breadcrumb(separator="/")
-      transition-group(name="breadcrumb")
-        el-breadcrumb-item(v-for="(item,index) in items" :key="item.path" :disabled='true')
-          span {{item.meta.title}}
-          //- span(v-if='item.redirect===""||index==items.length-1') {{item.meta.title}}
-          //- router-link(v-else :to="item.redirect||item.path") {{item.meta.title}}
-    el-dropdown(@command="handleCommand")
-      div
-        span.name  {{userInfo['nickname']}}
-        img.el-dropdown-link(v-if="userInfo['avatar']" :src="userInfo['avatar']")
-        img.el-dropdown-link(v-else src="@/assets/image/avatar.jpg")
-        i.el-icon-arrow-down.el-icon--right
-      el-dropdown-menu(slot="dropdown")
-        el-dropdown-item(command="info") 个人信息
-        el-dropdown-item(command="change") 修改密码
-        el-dropdown-item(command="logout") &nbsp;&nbsp;&nbsp;退&nbsp;&nbsp;出&nbsp;&nbsp;&nbsp;
-    el-dialog(v-loading="loading" width="30%" :append-to-body="true" title="修改密码" :before-close="closeDialog" :visible.sync="dialogFormVisible")
-      el-form(:model="ruleForm" ref="ruleForm" :rules="rules")
-        el-form-item(label="旧密码" label-width="70px" prop="pass1")
-          el-input(v-model="ruleForm.pass1" auto-complete="off" type="password")
-        el-form-item(label="新密码" label-width="70px" prop="pass2")
-          el-input(v-model="ruleForm.pass2" auto-complete="off" type="password")
-      div.dialog-footer(slot="footer")
-        el-button(@click="closeDialog") 取 消
-        el-button(type="primary" @click="submit") 确 定
+  <div class="head">
+    <el-breadcrumb separator="/">
+      <transition-group name="breadcrumb">
+        <el-breadcrumb-item v-for="(item,index) in items" :key="item.path" :disabled='true'>
+          <span>{{item.meta.title}}</span>
+          <!--span v-if='item.redirect===""||index==items.length-1'>{{item.meta.title}}</span>
+          <router-link v-else :to="item.redirect||item.path">{{item.meta.title}}</router-link-->
+        </el-breadcrumb-item>
+      </transition-group>
+    </el-breadcrumb>
+    <el-dropdown @command="handleCommand">
+      <div>
+        <span class="name">{{userInfo['nickname']}}</span>
+        <img class="el-dropdown-link" v-if="userInfo['avatar']" :src="userInfo['avatar']" />
+        <img class="el-dropdown-link" v-else src="@/assets/image/avatar.jpg" />
+        <i class="el-icon-arrow-down el-icon--right"></i>
+      </div>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item command="info">个人信息</el-dropdown-item>
+        <el-dropdown-item command="change">修改密码</el-dropdown-item>
+        <el-dropdown-item command="logout">&nbsp;&nbsp;&nbsp;退&nbsp;&nbsp;出&nbsp;&nbsp;&nbsp;</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
+    <el-dialog v-loading="loading" width="30%" :append-to-body="true" title="修改密码" :before-close="closeDialog" :visible.sync="dialogFormVisible">
+      <el-form :model="ruleForm" ref="ruleForm" :rules="rules">
+        <el-form-item label="旧密码" label-width="70px" prop="pass1">
+          <el-input v-model="ruleForm.pass1" auto-complete="off" type="password" />
+        </el-form-item>
+        <el-form-item label="新密码" label-width="70px" prop="pass2">
+          <el-input v-model="ruleForm.pass2" auto-complete="off" type="password" />
+        </el-form-item>
+      </el-form>
+      <div class="dialog-footer" slot="footer">
+        <el-button @click="closeDialog"> 取 消 </el-button>
+        <el-button type="primary" @click="submit"> 确 定 </el-button>
+      </div>
+    </el-dialog>
+  </div>
 </template>
 <script>
 // import SidebarList from '@/views/components/SidebarList'

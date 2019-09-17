@@ -1,6 +1,7 @@
 <template lang="pug">
-  div#app-index
-    div  这是首页。。。。。。介绍介绍介绍介绍介绍
+  <div id="app-index">
+    <div>  这是首页。。。。。。介绍介绍介绍介绍介绍</div>
+  </div>
 </template>
 <script>
 export default{

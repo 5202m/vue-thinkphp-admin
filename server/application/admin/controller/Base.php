@@ -1,11 +1,14 @@
 <?php
 namespace app\admin\controller;
 
+use app\admin\model\AccessLogs;
 use think\Request;
 use think\Controller;
 
 class Base extends Controller
 {
+    private $param = [];
+
     public function _initialize()
     {
         parent::_initialize();
@@ -27,8 +30,10 @@ class Base extends Controller
     {
         $username = $this->param['username'];
         $password = $this->param['password'];
-        $user = model('AdminUser');
-        $menu = model('Menu');
+        $user = new \app\admin\model\AdminUser();
+        $menu = new \app\admin\model\Menu();
+        //$user = model('AdminUser');
+        //$menu = model('Menu');
         $data = [
           'username' => $username,
           'password' => md5($password.$username)
@@ -49,7 +54,9 @@ class Base extends Controller
                 'isp'       => $result[4],
                 'create_at' =>time(),
               ];
-                model('AccessLogs')->saveLogs($res);
+                $accessLogs = new AccessLogs();
+                $accessLogs->saveLogs($res);
+                //model('AccessLogs')->saveLogs($res);
             }
             // ---end
 
@@ -59,7 +66,8 @@ class Base extends Controller
             if ($ret['id'] == 1) {
                 $m = getLoginTree($menu->getMenus(['status'=>1]));
             } else {
-                $rule = model('Rule');
+                $rule = new \app\admin\model\Rule();
+                //$rule = model('Rule');
                 $r = $rule->getRuleById($ret['r_id']);
                 if ($r) {
                     $ids = explode(',', $r['rs']);
