@@ -86,7 +86,7 @@ class Category extends Model
     public function del($id = 0)
     {
         try {
-            $res = $this->where('id', $id)->delete();
+            $res = $this->where('cat_id', $id)->delete();
             if ($res) {
                 return $res;
             } else {
