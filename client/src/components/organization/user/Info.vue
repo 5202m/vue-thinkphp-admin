@@ -59,7 +59,7 @@ export default {
     handleAvatarSuccess (res, file) {
       util.response(res, this)
       if (res.data) {
-        this.ruleForm.avatar = res.data.path + res.data.name
+        this.ruleForm.avatar = '/' + res.data.path + '/' + res.data.name
         this.imageUrl = URL.createObjectURL(file.raw)
       }
     },
