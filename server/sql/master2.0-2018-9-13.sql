@@ -247,4 +247,40 @@ CREATE TABLE `m_sys_config` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统配置';
 
+DROP TABLE IF EXISTS `m_category`;
+CREATE TABLE `m_category` (
+	`cat_id` SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`cat_name` VARCHAR(90) NOT NULL DEFAULT '',
+	`keywords` VARCHAR(255) NOT NULL DEFAULT '',
+	`cat_desc` VARCHAR(255) NOT NULL DEFAULT '',
+	`parent_id` SMALLINT(5) UNSIGNED NOT NULL DEFAULT '0',
+	`sort_order` SMALLINT(8) UNSIGNED NOT NULL DEFAULT '50',
+	`template_file` VARCHAR(50) NOT NULL DEFAULT '',
+	`measure_unit` VARCHAR(15) NOT NULL DEFAULT '',
+	`show_in_nav` TINYINT(1) NOT NULL DEFAULT '0',
+	`style` VARCHAR(150) NOT NULL DEFAULT ' ',
+	`is_show` TINYINT(1) UNSIGNED NOT NULL DEFAULT '1',
+	`grade` TINYINT(4) NOT NULL DEFAULT '0',
+	`filter_attr` VARCHAR(255) NOT NULL DEFAULT '0',
+	`is_top_style` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+	`top_style_tpl` VARCHAR(255) NOT NULL DEFAULT ' ',
+	`style_icon` VARCHAR(50) NOT NULL DEFAULT 'other',
+	`cat_icon` VARCHAR(255) NOT NULL DEFAULT ' ',
+	`is_top_show` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+	`category_links` TEXT NULL,
+	`category_topic` TEXT NULL,
+	`pinyin_keyword` TEXT NULL,
+	`cat_alias_name` VARCHAR(90) NOT NULL DEFAULT ' ',
+	`commission_rate` SMALLINT(5) UNSIGNED NOT NULL DEFAULT '0',
+	`touch_icon` VARCHAR(255) NOT NULL DEFAULT ' ',
+	PRIMARY KEY (`cat_id`),
+	INDEX `parent_id` (`parent_id`),
+	INDEX `is_show` (`is_show`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+COMMENT='商品分类表'
+;
+
+
 SET FOREIGN_KEY_CHECKS = 1;
