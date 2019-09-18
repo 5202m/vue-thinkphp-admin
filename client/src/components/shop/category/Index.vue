@@ -212,23 +212,23 @@ export default{
     },
     async enable (e, type) {
       let data = {
-          'id': e.cat_id,
+        'id': e.cat_id
       }
-      if (type == 'show') {
+      if (type === 'show') {
         data.is_show = e.is_show ? 0 : 1
-      } else if (type == 'nav') {
+      } else if (type === 'nav') {
         data.show_in_nav = e.show_in_nav ? 0 : 1
       }
       let res = await api.category.enable(data)
       util.response(res, this)
       if (res.code === 200) {
-          if (type == 'show') {
-            e.is_show = e.is_show ? 0 : 1
-          } else if (type == 'nav') {
-            e.show_in_nav = e.show_in_nav ? 0 : 1
-          }
+        if (type === 'show') {
+          e.is_show = e.is_show ? 0 : 1
+        } else if (type === 'nav') {
+          e.show_in_nav = e.show_in_nav ? 0 : 1
+        }
       } else {
-          util.message(res.error, 'error')
+        util.message(res.error, 'error')
       }
     },
     async getData () {

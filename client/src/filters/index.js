@@ -57,7 +57,6 @@ Vue.filter('timeFilter', function (value, format = 'YYYY-MM-DD H:mm:ss') {
   return date
 })
 
-
 Vue.filter('enableShowFilter', function (value) {
   if (value) {
     return '隐藏'

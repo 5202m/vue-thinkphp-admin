@@ -25,7 +25,6 @@ let update = async (data) => {
   return result
 }
 
-
 let enable = async (data) => {
   let url = path + '/enable'
   let result = await http.post(url, data)
