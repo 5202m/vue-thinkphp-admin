@@ -1,25 +1,25 @@
 <?php
 
-function getTree($data = [])
+function getTree($data = [], $treeKey = ['id'=>'id', 'title'=>'title', 'pid'=>'pid'])
 {
     if (empty($data)) {
         return [];
     }
     $arr = [];
     foreach ($data as $key => &$value) {
-        $value['value'] = $value['id'];
-        $value['label'] = $value['title'];
-        if ($value['pid'] == 0) {
+        $value['value'] = $value[$treeKey['id']];
+        $value['label'] = $value[$treeKey['title']];
+        if ($value[$treeKey['pid']] == 0) {
             array_push($arr, $value);
             unset($value);
         }
     }
 
     foreach ($data as $key => &$value) {
-        if ($value['pid'] != 0) {
+        if ($value[$treeKey['pid']] != 0) {
             unset($value['redirect']);
             foreach ($arr as $k => &$v) {
-                if ($v['id'] == $value['pid']) {
+                if ($v[$treeKey['id']] == $value[$treeKey['pid']]) {
                     if (isset($v['children'])) {
                         array_push($v['children'], $value);
                     } else {

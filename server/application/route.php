@@ -18,6 +18,7 @@ return [
         'department'=>  'admin/department',
         'user'      =>  'admin/adminUser',
         'rule'      =>  'admin/rule',
+        'category'  =>  'admin/category',
     ],
     '[base]'      => [
         'index'   => ['admin/base/index', ['method' => 'get']],
@@ -36,6 +37,7 @@ return [
     'position/enable'   => ['admin/position/enable', ['method' => 'post']],
     'department/enable' => ['admin/department/enable', ['method' => 'post']],
     'menu/enable'       => ['admin/menu/enable', ['method' => 'post']],
+    'category/enable'       => ['admin/category/enable', ['method' => 'post']],
     // MISS路由
     '__miss__'    => 'admin/base/index',
 ];

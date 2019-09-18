@@ -19,9 +19,9 @@
   </el-container>
 </template>
 <script>
-import Menu from '@/views/components/Menu'
-import Header from '@/views/components/Header'
-import Footer from '@/views/components/Footer'
+import Menu from '../Menu'
+import Header from '../Header'
+import Footer from '../Footer'
 export default {
   name: 'App',
   components: {

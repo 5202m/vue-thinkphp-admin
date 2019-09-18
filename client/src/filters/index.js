@@ -56,3 +56,20 @@ Vue.filter('timeFilter', function (value, format = 'YYYY-MM-DD H:mm:ss') {
   let date = moment(day).format(format)
   return date
 })
+
+
+Vue.filter('enableShowFilter', function (value) {
+  if (value) {
+    return '隐藏'
+  } else {
+    return '显示'
+  }
+})
+
+Vue.filter('enableShowFilterType', function (value) {
+  if (value) {
+    return 'warning'
+  } else {
+    return 'success'
+  }
+})
