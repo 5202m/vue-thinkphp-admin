@@ -1,11 +1,11 @@
 import http from '@/utils/http'
 let path = '/files'
 
-let avatar = () => {
+let upload = () => {
   let url = http.baseURL + path + '/index'
   return url
 }
 
 export default{
-  avatar
+  upload
 }

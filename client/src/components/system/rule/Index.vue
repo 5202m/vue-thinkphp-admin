@@ -8,7 +8,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="name" label="名称" align="center"></el-table-column>
-      <el-table-column prop="rs" label="权限ID" align="center"></el-table-column>
+      <!--el-table-column prop="rs" label="权限ID" align="center"></el-table-column-->
       <el-table-column prop="remark" label="备注" align="center"></el-table-column>
       <el-table-column prop="status" label="状态" align="center">
         <template slot-scope="scope">

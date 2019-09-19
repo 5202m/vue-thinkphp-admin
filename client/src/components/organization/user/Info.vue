@@ -39,7 +39,7 @@ export default {
         ]
       },
       imageUrl: '',
-      path: upload.avatar()
+      path: upload.upload()
     }
   },
   methods: {

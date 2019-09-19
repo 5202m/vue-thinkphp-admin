@@ -40,12 +40,12 @@
             <el-option v-for="item in options" :key="item.cat_id" :label="item.cat_name" :value="item.cat_id" />
           </el-select>
         </el-form-item>
-        <!--el-form-item label="头像" prop="status">
-          <el-upload class="avatar-uploader" :headers="header" name="file" accept=".jpg,.png,.jpeg" :action="path" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-              <img class="avatar" v-if="imageUrl" :src="imageUrl" />
-              <i class="el-icon-plus avatar-uploader-icon" v-else />
+        <el-form-item label="手机小图标" prop="touch_icon">
+          <el-upload class="upload-demo" :headers="header" show-file-list="true" name="file" accept=".jpg,.png,.jpeg" :action="path" :file-list="imgList" :data="uploadData" :show-file-list="false" :on-success="handleImgSuccess" :before-upload="beforeImgUpload">
+              <el-button size="small" type="primary">点击上传</el-button>
+              <div slot="tip" class="el-upload__tip">注：手机端专用,建议上传正方形图片（100*100）</div>
           </el-upload>
-        </el-form-item-->
+        </el-form-item>
           <el-form-item label="排序" prop="sort_order">
               <el-input-number v-model="ruleForm.sort_order" :min="0" />
           </el-form-item>
@@ -75,6 +75,7 @@
 <script>
 import api from '@/api'
 import util from '@/utils'
+import upload from '@/api/upload'
 import _ from 'lodash'
 export default{
   data () {
@@ -91,7 +92,8 @@ export default{
         cat_desc: '',
         show_in_nav: false,
         is_show: true,
-        sort_order: 0
+        sort_order: 0,
+        touch_icon: ''
       },
       title: '添加商品分类',
       rules: {
@@ -106,7 +108,9 @@ export default{
         cat_id: 0,
         cat_name: '顶级分类'
       }],
-      type: 2
+      type: 2,
+      path: upload.upload(),
+      imgList: []
     }
   },
   methods: {
@@ -169,6 +173,7 @@ export default{
         this.ruleForm.show_in_nav = false
         this.ruleForm.is_show = true
         this.ruleForm.sort_order = 0
+        this.ruleForm.touch_icon = ''
       })
     },
     edit (e) {
@@ -184,6 +189,7 @@ export default{
       this.ruleForm.show_in_nav = !!e.show_in_nav
       this.ruleForm.is_show = !!e.is_show
       this.ruleForm.sort_order = e.sort_order
+      this.ruleForm.touch_icon = e.touch_icon
     },
     async submit () {
       this.f_loading = true
@@ -245,6 +251,38 @@ export default{
     getCategory () {
       this.options = util.cloneDeep(this.data)
       this.options.unshift({cat_id: 0, cat_name: '顶级分类'})
+    },
+    handleImgSuccess (res, file) {
+      util.response(res, this)
+      if (res.data) {
+        let url = '/' + res.data.path + '/' + res.data.name
+        this.ruleForm.touch_icon = url
+        this.imgList.unshift({name: res.data.name, url: url})
+      }
+    },
+    beforeImgUpload (file) {
+      const isLt2M = file.size / 1024 / 1024 < 2
+      if (file.type !== 'image/jpeg' && file.type !== 'image/jpg' && file.type !== 'image/png') {
+        this.$message.error('上传头像图片只能是jpg/png/ipeg格式!')
+        return false
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+        return false
+      }
+      return true
+    }
+  },
+  computed: {
+    header () {
+      return {
+        'X-Requested-Token': sessionStorage.getItem('token') ? sessionStorage.getItem('token') : null
+      }
+    },
+    uploadData () {
+      return {
+        'type': 'touch_icon'
+      }
     }
   },
   mounted () {
